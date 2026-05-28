@@ -1,0 +1,28 @@
+[Unit]
+Description=My Web App (Task Tracker)
+Requires=mywebapp.socket
+After=network.target mariadb.service
+
+[Service]
+Type=simple
+User=app
+WorkingDirectory=/opt/mywebapp
+ExecStartPre=/opt/mywebapp/venv/bin/python /opt/mywebapp/migrate.py \
+    --db-host 127.0.0.1 \
+    --db-port 3306 \
+    --db-user mywebapp \
+    --db-password REPLACE_WITH_PASSWORD \
+    --db-name mywebapp
+ExecStart=/opt/mywebapp/venv/bin/gunicorn \
+    --workers 1 \
+    --bind fd://3 \
+    app:app
+Environment=DB_HOST=127.0.0.1
+Environment=DB_PORT=3306
+Environment=DB_USER=mywebapp
+Environment=DB_PASSWORD=REPLACE_WITH_PASSWORD
+Environment=DB_NAME=mywebapp
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
