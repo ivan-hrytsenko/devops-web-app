@@ -15,7 +15,7 @@ ExecStartPre=/opt/mywebapp/venv/bin/python /opt/mywebapp/migrate.py \
     --db-name mywebapp
 ExecStart=/opt/mywebapp/venv/bin/gunicorn \
     --workers 1 \
-    --bind fd://3 \
+    --bind unix:/run/mywebapp.sock \
     app:app
 Environment=DB_HOST=127.0.0.1
 Environment=DB_PORT=3306

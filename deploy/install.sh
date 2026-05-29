@@ -77,9 +77,9 @@ systemctl daemon-reload
 systemctl enable mywebapp.socket
 systemctl start mywebapp.socket
 systemctl enable mywebapp
-systemctl start mywebapp
 
 echo "=== 8. Налаштування nginx ==="
+usermod -aG app www-data
 cp "$SCRIPT_DIR/nginx.conf" /etc/nginx/sites-available/mywebapp
 ln -sf /etc/nginx/sites-available/mywebapp /etc/nginx/sites-enabled/mywebapp
 rm -f /etc/nginx/sites-enabled/default

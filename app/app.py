@@ -9,10 +9,10 @@ parser.add_argument('--host', default=os.environ.get('APP_HOST', '127.0.0.1'))
 parser.add_argument('--port', type=int, default=int(os.environ.get('APP_PORT', 5000)))
 parser.add_argument('--db-host', default=os.environ.get('DB_HOST', '127.0.0.1'))
 parser.add_argument('--db-port', type=int, default=int(os.environ.get('DB_PORT', 3306)))
-parser.add_argument('--db-user', default=os.environ.get('DB_USER'))
-parser.add_argument('--db-password', default=os.environ.get('DB_PASSWORD'))
-parser.add_argument('--db-name', default=os.environ.get('DB_NAME'))
-args = parser.parse_args()
+parser.add_argument('--db-user', default=os.environ.get('DB_USER', ''))
+parser.add_argument('--db-password', default=os.environ.get('DB_PASSWORD', ''))
+parser.add_argument('--db-name', default=os.environ.get('DB_NAME', ''))
+args, _ = parser.parse_known_args()
 
 conn = None
 db_ready = False
